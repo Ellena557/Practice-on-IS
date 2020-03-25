@@ -1,0 +1,19 @@
+version: '3'
+services:
+  rbc:
+    build:
+      context: ./rbc
+    ports:
+      - "8060:8060"
+  weather:
+    build:
+      context: ./weather
+      dockerfile: Dockerfile
+    ports:
+      - "8070:8070"  
+  ml:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile
+    ports:
+      - "8050:8050"
