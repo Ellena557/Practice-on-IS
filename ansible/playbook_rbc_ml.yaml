@@ -1,0 +1,63 @@
+- hosts: rbc-and-ml-server
+  remote_user: mftiedu
+  become: yes
+
+  vars:
+    ansible_become_user: root
+    ansible_become_password: cHONtic
+  
+  tasks:
+    - name: delete previous directory
+      shell: rm -rf ./edu/ellena
+
+    - name: make a directory for lab-4
+      shell: mkdir edu/ellena
+      #ignore_errors: True
+
+    - name: make a directory for rbc module
+      shell: mkdir edu/ellena/rbc
+      #ignore_errors: True
+
+    - name: make a directory for ml module
+      shell: mkdir edu/ellena/ml
+      #ignore_errors: True
+
+    - name: copy rbc module
+      copy:
+        src: ./rbc/RbkApp.jar
+        dest: edu/ellena/rbc/  
+
+    - name: copy ml module
+      copy:
+        src: ./ml/MLApp3.jar
+        dest: edu/ellena/ml/
+  
+    - name: copy Dockerfile for rbc module
+      copy:
+        src: ./rbc/Dockerfile
+        dest: edu/ellena/rbc/
+
+    - name: copy Dockerfile for ml module
+      copy:
+        src: ./ml/Dockerfile
+        dest: edu/ellena/ml/
+
+    - name: load image for rbc module
+      docker_image:
+        name: g_rbc_app
+        path: ./edu/ellena/rbc
+        source: build
+
+    - name: load image for ml module
+      docker_image:
+        name: g_ml_app
+        path: ./edu/ellena/ml
+        source: build
+
+    - name: copy rbc-ml compose file
+      copy:
+        src: ./docker-compose-rbc-ml.yml
+        dest: edu/ellena/
+  
+    - name: run a compose file
+      shell: sudo docker-compose -f ./edu/ellena/docker-compose-rbc-ml.yml up -d

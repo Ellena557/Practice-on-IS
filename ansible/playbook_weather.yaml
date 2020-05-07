@@ -1,0 +1,32 @@
+- hosts: weather-server
+  remote_user: edumfti
+  become: yes
+
+  vars:
+    ansible_become_user: root
+    ansible_become_password: aNSHaPi
+  
+  tasks:
+    - name: delete previous directory
+      shell: rm -rf ./edu/ellena
+
+    - name: make a directory for lab-4
+      shell: mkdir edu/ellena
+
+    - name: copy weather module
+      copy:
+        src: ./weather/WeatherApp.jar
+        dest: edu/ellena/
+  
+    - name: copy Dockerfile for weather module
+      copy:
+        src: ./weather/Dockerfile
+        dest: edu/ellena/
+    - name: load image for weather module
+      docker_image:
+        name: g_weather_app
+        path: ./edu/ellena
+        source: build 
+ 
+    - name: run a Dockerfile
+      shell: sudo docker run -d  g_weather_app
