@@ -22,6 +22,7 @@
       copy:
         src: ./weather/Dockerfile
         dest: edu/ellena/
+        
     - name: load image for weather module
       docker_image:
         name: g_weather_app
