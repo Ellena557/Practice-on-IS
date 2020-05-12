@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-ml
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kube-ml
+  template:
+    metadata:
+      name: kube-ml
+      labels:
+        app: kube-ml
+    spec:
+      containers:
+        - name: kube-ml
+          image: docker-ml
+          imagePullPolicy: IfNotPresent
+      imagePullSecrets:
+        - name: secretsecret

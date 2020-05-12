@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-rbc
+  labels:
+    app: rbc
+spec:
+  containers:
+  - image: nginx:1.12
+    name: nginx
+    ports:
+    - containerPort: 80

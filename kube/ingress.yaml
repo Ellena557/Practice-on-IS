@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+  - host: ellen.kube.rbc
+    http:
+      paths:
+        - backend:
+            serviceName: kube-rbc
+            servicePort: 8060
+  - host: ellen.kube.weather
+    http:
+      paths:
+      - backend:
+          serviceName: kube-weather
+          servicePort: 8070
+  - host: ellen.kube.ml
+    http:
+      paths:
+      - backend:
+          serviceName: kube-ml
+          servicePort: 8050
