@@ -1,6 +1,7 @@
 version: '3'
 services:
   rbc:
+    image: docker-rbc
     build:
       context: ./rbc
     ports:
@@ -8,12 +9,14 @@ services:
     depends_on:
       - dbpostgresql
   weather:
+    image: docker-weather
     build:
       context: ./weather
       dockerfile: Dockerfile
     ports:
       - "8070:8070"  
   ml:
+    image: docker-ml
     build:
       context: ./ml
       dockerfile: Dockerfile
@@ -28,3 +31,18 @@ services:
       POSTGRES_DB: testdb
       POSTGRES_USER: adminadmin
       POSTGRES_PASSWORD: pwdpwd
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: helena557@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: pwdpwd
+    depends_on:
+      - dbpostgresql
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"

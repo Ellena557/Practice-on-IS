@@ -38,6 +38,15 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -61,6 +70,15 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.3.2</version>
+                <!--<configuration>-->
+                    <!--<driver>org.postgresql.Driver</driver>-->
+                    <!--<url>jdbc:postgresql://database:5432/db</url>-->
+                    <!--<user>adminadmin</user>-->
+                    <!--<password>pwdpwd</password>-->
+                    <!--<schemas>-->
+                        <!--<schema>rbkdb</schema>-->
+                    <!--</schemas>-->
+                <!--</configuration>-->
             </plugin>
         </plugins>
     </build>
